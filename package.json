@@ -1,0 +1,91 @@
+{
+  "name": "template-react-typescript",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@tanstack/react-query": "^5.17.7",
+    "@testing-library/jest-dom": "^5.17.0",
+    "@testing-library/react": "^13.4.0",
+    "@testing-library/user-event": "^13.5.0",
+    "@types/jest": "^27.5.2",
+    "@types/node": "^16.18.69",
+    "@types/react": "^18.2.47",
+    "@types/react-dom": "^18.2.18",
+    "classnames": "^2.5.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^6.22.3",
+    "react-scripts": "5.0.1",
+    "typescript": "^4.9.5",
+    "use-query-params": "^2.2.1",
+    "web-vitals": "^2.1.4",
+    "yup": "^1.3.3"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "CI=false react-scripts build",
+    "lint": "NODE_PROD=prod eslint \"**/*.{js,jsx,ts,tsx}\" --color --no-error-on-unmatched-pattern",
+    "lint:fix": "bun run lint --fix",
+    "stylelint": "stylelint \"src/**/*.{css,scss}\" --fix",
+    "format": "prettier --write \"**/*.{json,ts,tsx,js,jsx,md,scss,css,html}\" --no-error-on-unmatched-pattern",
+    "analyze": "bun run build:analyze && source-map-explorer \"build/static/js/*.js\"",
+    "build:analyze": "env-cmd -f .env.development cross-env NODE_ENV=production CI=false react-scripts build",
+    "prepare": "husky install"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^17.7.2",
+    "@commitlint/config-conventional": "^17.7.0",
+    "@tanstack/eslint-plugin-query": "^5.17.7",
+    "@typescript-eslint/eslint-plugin": "^6.7.5",
+    "@typescript-eslint/parser": "^6.7.5",
+    "cross-env": "^7.0.3",
+    "env-cmd": "^10.1.0",
+    "eslint": "^8.51.0",
+    "eslint-config-airbnb-typescript": "^12.3.1",
+    "eslint-config-prettier": "^9.0.0",
+    "eslint-config-react-app": "^7.0.1",
+    "eslint-import-resolver-typescript": "^3.6.1",
+    "eslint-loader": "^4.0.2",
+    "eslint-plugin-flowtype": "^8.0.3",
+    "eslint-plugin-import": "^2.28.1",
+    "eslint-plugin-jsx-a11y": "^6.7.1",
+    "eslint-plugin-prettier": "^5.0.1",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "eslint-plugin-simple-import-sort": "^10.0.0",
+    "eslint-plugin-unused-imports": "^3.0.0",
+    "husky": "^8.0.0",
+    "lint-staged": "^14.0.1",
+    "prettier": "^3.1.1",
+    "prettier-eslint": "^15.0.1",
+    "prettier-eslint-cli": "^7.1.0",
+    "prettier-plugin-tailwindcss": "^0.5.11",
+    "source-map-explorer": "^2.5.3",
+    "stylelint": "^15.10.3",
+    "stylelint-config-css-modules": "^4.3.0",
+    "stylelint-config-prettier": "^9.0.5",
+    "stylelint-config-rational-order": "^0.1.2",
+    "stylelint-config-standard": "^34.0.0",
+    "stylelint-order": "^6.0.3",
+    "stylelint-prettier": "^4.0.2",
+    "stylelint-scss": "^5.2.1",
+    "tailwindcss": "^3.3.7"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}
