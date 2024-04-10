@@ -21,11 +21,11 @@ return(
       <form onSubmit={handleSubmit} className="mt-8 space-y-6" >
         <div>
           <label htmlFor="email-address" className="block text-sm font-medium text-gray-700 mb-1">Email</label>
-          <input id="email-address" name="email" type="email" autoComplete="email" required className="relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-orange-500 focus:border-orange-500 sm:text-sm" placeholder="Enter your email" />
+          <input id="email-address" name="email" type="email" autoComplete="email" required className="relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-orange-500 focus:border-green-500 sm:text-sm" placeholder="Enter your email" />
         </div>
         <div>
           <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-1 ">Password</label>
-          <input id="password" name="password" type="password" autoComplete="current-password" required className="relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-orange-500 focus:border-orange-500 sm:text-sm" placeholder="Enter your password" />
+          <input id="password" name="password" type="password" autoComplete="current-password" required className="relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-orange-500 focus:border-green-500 sm:text-sm" placeholder="Enter your password" />
         </div>
         <div className="flex items-center justify-between">
           <div className="text-sm">
