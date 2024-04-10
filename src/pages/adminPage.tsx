@@ -19,6 +19,7 @@ interface Quiz {
     C: string;
   };
   correctAnswer: string;
+  course?: string;
 }
 
 const AdminPanel: React.FC = () => {
@@ -26,13 +27,36 @@ const AdminPanel: React.FC = () => {
   const [isEditing, setIsEditing] = useState(false);
   const [currentQuiz, setCurrentQuiz] = useState<Quiz | null>(null);
   const { quizzes, deleteQuiz, saveQuiz } = useQuiz();
+  const [selectedCourseId, setSelectedCourseId] = useState<number | 'all'>('all');
+  const [courses, setCourses] = useState<{ id: number; name: string; }[]>([
+    
+    { id: 1, name: 'C++' },
+    { id: 2, name: 'C#' },
+    { id: 3, name: 'Python' },
+    { id: 4, name: 'Java' },
+    { id: 5, name: 'JavaScript' },
+    { id: 6, name: 'Flutter' },
+   
+  ]);
+
+  const courseColors: { [key: string]: string } = {
+    'C++': 'bg-blue-200',
+    'C#': 'bg-green-200',
+    Python: 'bg-yellow-200',
+    Java: 'bg-red-200',
+    JavaScript: 'bg-purple-200',
+    Flutter: 'bg-pink-200',
+  };
   
   const handleSaveQuiz = (id: number, question: string, options: { A: string; B: string; C: string; }, correctAnswer: string) => {
     if(saveQuiz) {
       saveQuiz(id, question, options, correctAnswer);
-      navigate('/'); 
+      navigate('/dashboard'); 
     }
   };
+  const filteredQuizzes = quizzes.filter(quiz =>
+    selectedCourseId === 'all' || quiz.courseId === selectedCourseId
+  );
 
   useEffect(() => {
     
@@ -75,29 +99,37 @@ const AdminPanel: React.FC = () => {
           <p className="text-white">Admin</p>
           <p className="text-gray-400 text-sm">Admin Panel</p>
         </div>
-        
         {/* Navigation */}
         <nav className="text-white text-sm">
           <Link to="/courses" className="block py-2.5 px-4 rounded hover:bg-gray-700">Courses</Link>
           <Link to="/log-out" className="block py-2.5 px-4 rounded hover:bg-gray-700">Logout</Link>
         </nav>
       </div>
-
       {/* Content */}
       <div className="w-4/5 p-10">
         <h1 className="text-2xl font-bold mb-8">Quiz List</h1>
         <button onClick={addQuiz} className="mb-6 bg-yellow-400 text-white py-2 px-4 rounded hover:bg-yellow-500">ADD NEW QUIZ</button>
-        
+        <select
+              className="py-2 px-4 rounded border border-gray-300"
+              value={selectedCourseId}
+              onChange={(e) => setSelectedCourseId(e.target.value === 'all' ? 'all' : Number(e.target.value))}
+            >
+              <option value="all">All Courses</option>
+              {courses.map((course) => (
+                <option key={course.id} value={course.id}>{course.name}</option>
+              ))}
+            </select>
         {/* Quizzes Table */}
         {isEditing && currentQuiz && (
-        <EditModal quiz={currentQuiz} onClose={closeModal} onSave={handleSaveQuiz} />
-      )}
+          <EditModal quiz={currentQuiz} onClose={closeModal} onSave={handleSaveQuiz} />
+        )}
         <div className="bg-white shadow-md rounded my-6">
           <table className="min-w-full border-collapse">
             <thead>
               <tr>
                 <th className="p-3 text-left">Question</th>
                 <th className="p-3 text-left">Options</th>
+                <th className="p-3 text-left">Course</th>
                 <th className="p-3">Actions</th>
               </tr>
             </thead>
@@ -106,6 +138,11 @@ const AdminPanel: React.FC = () => {
                 <tr key={quiz.id} className="hover:bg-gray-100">
                   <td className="p-3">{quiz.question}</td>
                   <td className="p-3">A: {quiz.options.A}, B: {quiz.options.B}, C: {quiz.options.C}</td>
+                  <td className="p-3">
+            <span className={`${courseColors[quiz.course ?? ''] ?? 'bg-gray-200'} px-2 py-1 rounded-full`}>
+              {quiz.course}
+            </span>
+          </td>
                   <td className="p-3 flex justify-start space-x-4">
                     <button onClick={() => viewQuiz(quiz.id)} className="p-1 rounded hover:bg-green-300" aria-label="View quiz"><ViewIcon className="h-5 w-5 text-yellow-600"/></button>
                     <button onClick={() => editQuiz(quiz.id)} className="p-1 rounded hover:bg-yellow-200" aria-label="Edit quiz"><EditIcon className="h-5 w-5 text-yellow-600"/></button>

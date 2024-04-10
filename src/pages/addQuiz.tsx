@@ -28,15 +28,16 @@ const AddQuiz: React.FC = () => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     addNewQuiz({
-        question, options, correctAnswer,course,
-        id: 0
+      question, options, correctAnswer, course,
+      id: 0,
+      courseId: 0
     });
 
     setQuestion('');
     setOptions({ A: '', B: '', C: '' });
     setCorrectAnswer('');
     setCourse('');
-    navigate('/'); 
+    navigate('/dashboard'); 
   };
 
   return (
@@ -105,7 +106,7 @@ const AddQuiz: React.FC = () => {
             <option value="C++">C++</option>
             <option value="C#">C#</option>
             <option value="Python">Python</option>
-            <option value="Java">Java Backend</option>
+            <option value="Java">Java</option>
             <option value="frontend">JavaScript</option>
             <option value="Flutter">Flutter</option>
           </select>

@@ -1,6 +1,7 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
 
 interface Quiz {
+  courseId: number;
   id: number;
   question: string;
   options: {
