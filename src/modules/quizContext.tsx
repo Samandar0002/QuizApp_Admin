@@ -27,6 +27,7 @@ const QUIZZES_STORAGE_KEY = 'quizzes';
 export const QuizProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [quizzes, setQuizzes] = useState<Quiz[]>(() => {
     const storedQuizzes = localStorage.getItem(QUIZZES_STORAGE_KEY);
+    
 
     return storedQuizzes ? JSON.parse(storedQuizzes) : [];
   });

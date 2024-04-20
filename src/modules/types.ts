@@ -1,7 +1,11 @@
 export type Quiz = {
-    correctAnswer(correctAnswer: any): [any, any];
-    options(options: any): [any, any];
-    question: string;
-    answer: string;
-    id?: number;
+  id: number; 
+  question: string;
+  options: {
+      A: string;
+      B: string;
+      C: string;
   };
+  correctAnswer: string;
+  course?: string;
+};

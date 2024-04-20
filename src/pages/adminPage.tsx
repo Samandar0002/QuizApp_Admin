@@ -7,6 +7,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useQuiz } from 'modules/quizContext';
 
 import EditModal from 'components/editModal';
+import ViewModal from 'components/wiewModal';
 
 import { DeleteIcon, EditIcon, ViewIcon } from 'assets/images';
 
@@ -38,6 +39,8 @@ const AdminPanel: React.FC = () => {
     { id: 6, name: 'Flutter' },
    
   ]);
+  const [isViewing, setIsViewing] = useState(false);
+  const [currentViewQuiz, setCurrentViewQuiz] = useState<Quiz | null>(null);
 
   const courseColors: { [key: string]: string } = {
     'C++': 'bg-blue-200',
@@ -70,9 +73,8 @@ const AdminPanel: React.FC = () => {
     const quiz = quizzes.find(q => q.id === id);
     
     if (!quiz) return;
-    const options = `A: ${quiz.options.A}\nB: ${quiz.options.B}\nC: ${quiz.options.C}`;
-
-    alert(`Question: ${quiz.question}\nOptions:\n${options}\nCorrect Answer: ${quiz.correctAnswer}`);
+    setCurrentViewQuiz(quiz);
+    setIsViewing(true);
   };
 
    const editQuiz = (id: number): void => {
@@ -87,6 +89,10 @@ const AdminPanel: React.FC = () => {
   const closeModal = () => {
     setIsEditing(false);
     setCurrentQuiz(null);
+  };
+  const closeViewModal = () => {
+    setIsViewing(false);
+    setCurrentViewQuiz(null);
   };
 
   return (
@@ -123,6 +129,9 @@ const AdminPanel: React.FC = () => {
         {isEditing && currentQuiz && (
           <EditModal quiz={currentQuiz} onClose={closeModal} onSave={handleSaveQuiz} />
         )}
+        {isViewing && currentViewQuiz && (
+  <ViewModal quiz={currentViewQuiz} onClose={closeViewModal} />
+)}
         <div className="bg-white shadow-md rounded my-6">
           <table className="min-w-full border-collapse">
             <thead>
@@ -139,10 +148,10 @@ const AdminPanel: React.FC = () => {
                   <td className="p-3">{quiz.question}</td>
                   <td className="p-3">A: {quiz.options.A}, B: {quiz.options.B}, C: {quiz.options.C}</td>
                   <td className="p-3">
-            <span className={`${courseColors[quiz.course ?? ''] ?? 'bg-gray-200'} px-2 py-1 rounded-full`}>
+                  <span className={`${courseColors[quiz.course ?? ''] ?? 'bg-gray-200'} px-2 py-1 rounded-full`}>
               {quiz.course}
-            </span>
-          </td>
+               </span>
+              </td>
                   <td className="p-3 flex justify-start space-x-4">
                     <button onClick={() => viewQuiz(quiz.id)} className="p-1 rounded hover:bg-green-300" aria-label="View quiz"><ViewIcon className="h-5 w-5 text-yellow-600"/></button>
                     <button onClick={() => editQuiz(quiz.id)} className="p-1 rounded hover:bg-yellow-200" aria-label="Edit quiz"><EditIcon className="h-5 w-5 text-yellow-600"/></button>
